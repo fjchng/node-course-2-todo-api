@@ -42,12 +42,14 @@ var UserSchema = new mongoose.Schema({
 	}]
 })
 
+// Return email and id in JSON
 UserSchema.methods.toJSON = function () {
 	var user = this
 	var userObject = user.toObject()
 	return _.pick(userObject, ['_id', 'email'])
 }
 
+// Generates token and save to user object
 UserSchema.methods.generateAuthToken = function () {
 	var user = this
 	var access = 'auth'
@@ -59,6 +61,7 @@ UserSchema.methods.generateAuthToken = function () {
 	})
 }
 
+// Retrieves user base on token given
 UserSchema.statics.findByToken = function (token) {
 	var User = this
 	var decoded
